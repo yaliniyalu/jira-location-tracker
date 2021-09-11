@@ -1,0 +1,55 @@
+.row {
+    display: flex;
+}
+
+.col {
+    flex: 1;
+    padding: 5px;
+}
+
+.address-select {
+    display: flex;
+}
+
+.address-select .icon {
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+    background-color: var(--background-subtleNeutral-resting, #F4F5F7);
+    border-color: var(--border-neutral, #F4F5F7);
+    cursor: pointer;
+    height: 100%;
+    user-select: none;
+}
+
+.address-select .icon:hover {
+    cursor: pointer;
+    background-color: var(--background-default, #EBECF0);
+    border-color: var(--border-neutral, #EBECF0);
+}
+
+.address-select .select {
+    flex: 1;
+}
+
+.update-current-location-btn {
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-5 {
+    margin-top: 5px;
+}
+
+.mt-15 {
+    margin-top: 5px;
+}
+
+.container {
+
+}

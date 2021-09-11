@@ -1,0 +1,187 @@
+modules:
+  jira:customField:
+    - key: location-tracker
+      name: Location Tracker
+      description: Location tracker.
+      type: object
+      formatter:
+        expression: "value.current === null ? `No location logged` : `${value.current.address}`"
+      schema:
+        properties:
+          origin:
+            type: object
+            properties:
+              address:
+                type: string
+              location:
+                type: object
+                properties:
+                  lat:
+                    type: number
+                  lng:
+                    type: number
+                required:
+                  - lat
+                  - lng
+            required:
+              - location
+          destination:
+            type: object
+            properties:
+              address:
+                type: string
+              location:
+                type: object
+                properties:
+                  lat:
+                    type: number
+                  lng:
+                    type: number
+                required:
+                  - lat
+                  - lng
+            required:
+              - location
+          distance:
+            type: object
+            properties:
+              text:
+                type: string
+              value:
+                type: integer
+            required:
+              - text
+              - value
+          duration:
+            type: object
+            properties:
+              text:
+                type: string
+              value:
+                type: integer
+            required:
+              - text
+              - value
+          travelMode:
+            type: string
+          waypoints:
+            type: array
+            items:
+              - type: object
+                properties:
+                  location:
+                    type: object
+                    properties:
+                      lat:
+                        type: number
+                      lng:
+                        type: number
+                    required:
+                      - lat
+                      - lng
+                  stopover:
+                    type: boolean
+                required:
+                  - location
+                  - stopover
+          current:
+            type: object
+            properties:
+              address:
+                type: string
+              location:
+                type: object
+                properties:
+                  lat:
+                    type: number
+                  lng:
+                    type: number
+                required:
+                  - lat
+                  - lng
+              duration:
+                type: object
+                properties:
+                  text:
+                    type: string
+                  value:
+                    type: integer
+                required:
+                  - text
+                  - value
+              distance:
+                type: object
+                properties:
+                  text:
+                    type: string
+                  value:
+                    type: integer
+                required:
+                  - text
+                  - value
+              destinationReached:
+                type: boolean
+              timestamp:
+                type: integer
+            required:
+              - location
+              - destinationReached
+              - timestamp
+        required:
+          - travelMode
+          - waypoints
+      readOnly: false
+      function: main
+      edit:
+        function: edit
+
+  jira:issuePanel:
+    - key: location-tracker-map
+      resource: map-viewer
+      resolver:
+        function: map-viewer-resolver
+      viewportSize: large
+      title: Location Tracker
+      icon: https://developer.atlassian.com/platform/forge/images/icons/issue-panel-icon.svg
+
+  function:
+    - key: map-viewer-resolver
+      handler: map-viewer.handler
+    - key: main
+      handler: index.runView
+    - key: edit
+      handler: index.runEdit
+
+resources:
+  - key: map-viewer
+    path: static/map-viewer/build
+
+permissions:
+  scopes:
+    - 'manage:jira-configuration'
+    - 'read:jira-work'
+    - 'write:jira-work'
+  content:
+    styles:
+      - 'unsafe-inline'
+    scripts:
+      - 'unsafe-hashes'
+      - 'unsafe-inline'
+      - 'unsafe-eval'
+  external:
+    scripts:
+      - 'https://maps.googleapis.com/'
+    styles:
+      - 'https://fonts.googleapis.com/'
+    images:
+      - 'https://maps.gstatic.com/'
+      - 'https://*.googleapis.com/'
+      - 'https://geo0.ggpht.com/'
+    fonts:
+      - 'https://fonts.gstatic.com/'
+    fetch:
+      backend:
+        - 'https://maps.googleapis.com/'
+
+app:
+  id: ari:cloud:ecosystem::app/59d6864d-6ea1-43b6-acff-36017fdda0e9
