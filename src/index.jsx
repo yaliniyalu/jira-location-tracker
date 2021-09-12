@@ -44,7 +44,7 @@ const View = () => {
 const Edit = () => {
     const onSubmit = () => {
         const { extensionContext: { fieldValue } } = useProductContext();
-        return null
+        return fieldValue
     }
 
     const { extensionContext: { fieldValue } } = useProductContext();
