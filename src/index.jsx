@@ -1,4 +1,4 @@
-import {
+import ForgeUI, {
     Fragment,
     CustomField,
     CustomFieldEdit,
@@ -44,12 +44,12 @@ const View = () => {
 const Edit = () => {
     const onSubmit = () => {
         const { extensionContext: { fieldValue } } = useProductContext();
-        return fieldValue
+        return null
     }
 
     const { extensionContext: { fieldValue } } = useProductContext();
 
-    const isLogged = fieldValue.origin && fieldValue.destination;
+    const isLogged = fieldValue && fieldValue.origin && fieldValue.destination;
 
     const renderRow = (title, value) => {
         return (
@@ -92,10 +92,9 @@ const Edit = () => {
         )
     }
 
-
     return (
         <CustomFieldEdit onSubmit={onSubmit}>
-            { !isLogged && <Text>No location logged</Text>}
+            { !isLogged && <Text>No location logged</Text> }
             {isLogged && (
                 <Fragment>
                     { renderDetails() }
